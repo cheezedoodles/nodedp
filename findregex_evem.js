@@ -1,5 +1,6 @@
 import { EventEmitter } from "events"
 import { readFile } from 'fs'
+import { nextTick } from "process"
 
 
 class FindRegex extends EventEmitter {
@@ -16,6 +17,7 @@ class FindRegex extends EventEmitter {
 
   find() {
     for (const file of this.files) {
+      nextTick(() => this.emit('process_start', this.files))
       readFile(file, 'utf8', (err, content) => {
         if (err) {
           return this.emit('error', err)
@@ -32,3 +34,11 @@ class FindRegex extends EventEmitter {
     return this
   }
 }
+
+const emitter = new FindRegex(/hello \w+/)
+emitter
+  .addFile('file.txt')
+  .find()
+  .on('process_start', (list) => console.log(`list of files: ${list}`))
+  .on('found', (file, match) => console.log(`${match} in file ${file}`))
+  .on('error', (err) => console.log(err))
