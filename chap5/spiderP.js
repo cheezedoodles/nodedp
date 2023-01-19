@@ -34,3 +34,16 @@ function spiderLinks(currentUrl, content, nesting) {
   
   return promise
 }
+
+export function spider(url, nesting) {
+  const filename = urlToFilename(url)
+  return fsPromises.readFile(filename, 'utf8')
+    .catch((err) => {
+      if (err.code !== 'ENOENT') {
+        throw err
+      }
+
+      return download(url, filename)
+    })
+    .then(content => spiderLinks(url, content, nesting))
+}
