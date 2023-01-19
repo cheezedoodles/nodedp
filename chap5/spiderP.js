@@ -35,7 +35,7 @@ function spiderLinks(currentUrl, content, nesting) {
   return promise
 }
 
-export function spider(url, nesting) {
+export function spider (url, nesting) {
   const filename = urlToFilename(url)
   return fsPromises.readFile(filename, 'utf8')
     .catch((err) => {
