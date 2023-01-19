@@ -23,16 +23,14 @@ function download(url, filename) {
 }
 
 function spiderLinks(currentUrl, content, nesting) {
-  let promise = Promise.resolve()
   if (nesting === 0) {
-    return promise
+    return Promise.resolve()
   }
   const links = getPageLinks(currentUrl, content)
-  for (const link of links) {
-    promise = promise.then(() => spider(link, nesting - 1))
-  }
   
-  return promise
+  const promises = links.map(link => spider(link, nesting - 1))
+
+  return Promise.all(promises)
 }
 
 export function spider (url, nesting) {
