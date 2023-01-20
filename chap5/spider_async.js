@@ -28,3 +28,19 @@ async function spiderLinks(currentUrl, content, nesting) {
     await spider(link, nesting - 1)
   }
 }
+
+export async function spider(url, nesting) {
+  const filename = urlToFilename(url)
+  let content
+  try {
+    content = await fsPromises.readFile(filename, 'utf8')
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      throw err
+    }
+    
+    content = await download(url, filename)
+  }
+
+  return spiderLinks(url, content, nesting)
+}
