@@ -1,11 +1,11 @@
-process.stdin
-  .on('readable', () => {
-    let chunk
+async function main() {
+  for await (const chunk of process.stdin) {
     console.log('New data available')
-    while ((chunk = process.stdin.read()) !== null) {
-      console.log(
-        `Chunk read (${chunk.length} bytes): "${chunk.toString()}"`
-      )
-    }
-  })
-  .on('end', () => console.log('End of stream'))
+    console.log(
+      `Chunk read (${chunk.length}) bytes: "${chunk.toString()}"`
+    )
+  }
+  console.log('End of stream')
+}
+
+main()
