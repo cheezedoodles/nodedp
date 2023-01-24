@@ -15,3 +15,16 @@ class Profiler {
       `and ${diff[1]} nanoseconds`)
   }
 }
+
+const noopProfiler = {
+  start () {},
+  end() {}
+}
+
+export function createProfiler(label) {
+  if (process.env.NODE_ENV === 'production') {
+    return noopProfiler
+  }
+
+  return new Profiler(label)
+}
