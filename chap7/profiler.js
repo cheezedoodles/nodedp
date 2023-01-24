@@ -11,7 +11,7 @@ class Profiler {
   end() {
     const diff = process.hrtime(this.lastTime)
     console.log(
-      `Timer ${this.label} took ${diff[0]} seconds` +
+      `Timer ${this.label} took ${diff[0]} seconds ` +
       `and ${diff[1]} nanoseconds`)
   }
 }
