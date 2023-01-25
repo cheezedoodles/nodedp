@@ -1,4 +1,4 @@
-class StackCalculator {
+export class StackCalculator {
   constructor() {
     this.stack = []
   }
