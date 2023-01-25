@@ -12,7 +12,7 @@ export function createFSAdapter(db) {
 
       db.get(resolve(filename), {
         valueEncoding: options.encoding
-      }),
+      },
       (err, value) => {
         if (err) {
           if (err.type === 'NotFoundError') {
@@ -24,10 +24,19 @@ export function createFSAdapter(db) {
           return callback && callback(err)
         }
         callback && callback(null, value)
-      }
+      })
     },
     writeFile(filename, contents, options, callback) {
-      return
+      if (typeof options === 'function') {
+        callback = options
+        options = {}
+      } else if (typeof options === 'string') {
+        options = { encoding: options }
+      }
+
+      db.put(resolve(filename), contents, {
+        valueEncoding: options.encoding
+      }, callback)
     }
   })
 }
