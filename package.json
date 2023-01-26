@@ -9,6 +9,7 @@
     "dependencies": {
         "chance": "^1.1.9",
         "cheerio": "^1.0.0-rc.3",
+        "json-over-tcp-2": "^0.3.5",
         "level": "^8.0.0",
         "mkdirp": "^0.5.5",
         "object-path": "^0.11.8",
