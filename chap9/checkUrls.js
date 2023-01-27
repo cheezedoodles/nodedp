@@ -34,3 +34,16 @@ export class CheckUrls {
     }
   }
 }
+
+async function main() {
+  const checkUrls = new CheckUrls([
+    'https://github.com/cheezedoodles',
+    'https://example.com',
+    'https://mustbedownforsurehopefully.com'
+  ])
+  for await (const status of checkUrls) {
+    console.log(status)
+  }
+}
+
+main()
