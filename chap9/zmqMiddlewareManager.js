@@ -13,7 +13,7 @@ export class ZmqMiddlewareManager {
       await this
         .executeMiddleware(this.inboundMiddleware, message)
         .catch(err => {
-          console.log
+          console.error('Error while processing the message', err)
         })
     }
   }
