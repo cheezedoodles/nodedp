@@ -17,7 +17,7 @@ async function main() {
     }
   })
   setInterval(() => {
-    zmqm.send({ action: 'ping', echo: Date.now() })
+    zmqm.send({ action: 'ping', echo: new Date() })
       .catch(err => console.error(err))
   }, 2000)
 

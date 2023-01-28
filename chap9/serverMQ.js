@@ -15,7 +15,7 @@ async function main() {
 		async inbound(message) {
 			console.log('Received:', message)
 			if (message.action === 'ping') {
-				await this.send({ action: 'pong', echo: message.echo })
+				await this.send({ action: 'pong', echo: new Date() })
 			}
 			return message
 		}
