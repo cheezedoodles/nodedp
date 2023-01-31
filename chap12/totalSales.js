@@ -1,10 +1,10 @@
 import level from 'level'
-import subLevel from 'subleveldown'
+import sublevel from 'subleveldown'
 
 const db = level('example-db')
-const salesDb = subLevel(db, 'sales', { valueEncoding: 'json' })
+const salesDb = sublevel(db, 'sales', { valueEncoding: 'json' })
 
-export async function totalSales(product) {
+export async function totalSales (product) {
   const now = Date.now()
   let sum = 0
   for await (const transaction of salesDb.createValueStream()) {
@@ -12,5 +12,8 @@ export async function totalSales(product) {
       sum += transaction.amount
     }
   }
+
   console.log(`totalSales() took: ${Date.now() - now}ms`)
+
+  return sum
 }
