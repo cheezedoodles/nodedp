@@ -1,3 +1,5 @@
+import { EventEmitter } from "events"
+
 export class SubsetSum extends EventEmitter {
   constructor(sum, set) {
     super()
