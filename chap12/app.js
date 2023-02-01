@@ -1,15 +1,22 @@
 import { createServer } from 'http'
+import { cpus } from 'os'
+import cluster from 'cluster'
 
-const { pid } = process
-const server = createServer((req, res) => {
-  // simulates CPU intensive work
-  let i = 1e7
-  while (i > 0) {
-    i--
-  }
 
-  console.log(`Handling request from ${pid}`)
-  res.end(`Hello from ${pid}\n`)
-})
-
-server.listen(8080, () => console.log(`Started at ${pid}`))
+if (cluster.isPrimary) {
+  const availableCpus = cpus()
+  console.log(`Clustering to ${availableCpus.length} processes`)
+  availableCpus.forEach(() => cluster.fork())
+} else {
+  const { pid } = process
+  const server = createServer((req, res) => {
+    // simulates CPU intensive work
+    let i = 1e7
+    while (i > 0) {
+      i--
+    }
+    console.log(`Handling request from ${pid}`)
+    res.end(`Hello from ${pid}\n`)
+  })
+  server.listen(8080, () => console.log(`Started at ${pid}`))
+}
