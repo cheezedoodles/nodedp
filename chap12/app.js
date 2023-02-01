@@ -16,6 +16,17 @@ if (cluster.isPrimary) {
       cluster.fork()
     }
   })
+  process.on('SIGUSR2', async () => {
+    const workers = Object.values(cluster.workers)
+    for (const worker of workers) {
+      console.log(`Stopping worker: ${worker.process.pid}`)
+      worker.disconnect()
+      await once(worker, 'exit')
+      if (!worker.exitedAfterDisconnect) continue
+      const newWorker = cluster.fork()
+      await once(newWorker, 'listening')
+    }
+  })
 } else {
   const { pid } = process
   const server = createServer((req, res) => {
