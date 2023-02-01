@@ -7,21 +7,22 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
+        "autocannon": "^7.10.0",
         "chance": "^1.1.9",
         "cheerio": "^1.0.0-rc.3",
         "json-over-tcp-2": "^0.3.5",
         "level": "^8.0.0",
         "mkdirp": "^0.5.5",
+        "nanoid": "^2.1.11",
         "nunjucks": "^3.2.3",
         "object-path": "^0.11.8",
         "pumpify": "^2.0.1",
         "slug": "^1.1.0",
         "split": "^1.0.1",
         "sqlite3": "^5.1.4",
-        "superagent": "^8.0.8",
-        "zeromq": "^6.0.0-beta.16",
         "subleveldown": "^4.1.4",
-        "nanoid": "^2.1.11"
+        "superagent": "^8.0.8",
+        "zeromq": "^6.0.0-beta.16"
     },
     "engines": {
         "node": ">=14"

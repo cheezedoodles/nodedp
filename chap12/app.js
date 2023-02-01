@@ -7,6 +7,15 @@ if (cluster.isPrimary) {
   const availableCpus = cpus()
   console.log(`Clustering to ${availableCpus.length} processes`)
   availableCpus.forEach(() => cluster.fork())
+  cluster.on('exit', (worker, code) => {
+    if (code !== 0 && !worker.exitedAfterDisconnect) {
+      console.log(
+        `Worker ${worker.process.pid} crashed. ` +
+        'Starting a new worker'
+      )
+      cluster.fork()
+    }
+  })
 } else {
   const { pid } = process
   const server = createServer((req, res) => {
