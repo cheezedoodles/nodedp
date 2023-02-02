@@ -24,7 +24,7 @@ const server = createServer((req, res) => {
   consulClient.agent.service.list((err, services) => {
     const servers = !err && Object.values(services)
       .filter(service => service.Tags.includes(route.service))
-    if (err || !servers.lengths) {
+    if (err || !servers.length) {
       res.writeHead(502)
       return res.end('Bad gateway')
     }
