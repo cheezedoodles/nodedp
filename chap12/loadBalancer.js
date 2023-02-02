@@ -29,7 +29,7 @@ const server = createServer((req, res) => {
       return res.end('Bad gateway')
     }
 
-    route.index(route.index + 1) % servers.length
+    route.index = (route.index + 1) % servers.length
     const server = servers[route.index]
     const target = `http://${server.Address}:${server.Port}`
     proxy.web(req, res, { target })
