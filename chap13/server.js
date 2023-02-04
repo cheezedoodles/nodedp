@@ -1,8 +1,8 @@
-import { createServer } from "http";
+import { createServer } from 'http'
 import staticHandler from 'serve-handler'
 import ws from 'ws'
 
-
+// serve static files
 const server = createServer((req, res) => {
   return staticHandler(req, res, { public: 'www' })
 })
@@ -16,7 +16,7 @@ wss.on('connection', client => {
   })
 })
 
-function broadcast(msg) {
+function broadcast (msg) {
   for (const client of wss.clients) {
     if (client.readyState === ws.OPEN) {
       client.send(msg)
